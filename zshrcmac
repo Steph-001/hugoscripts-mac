@@ -1,0 +1,107 @@
+export PATH="/Library/TeX/texbin:$HOME/bin:$HOME/.local/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+
+export PATH="$HOME/Sync/venv/bin:$PATH"
+
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="example"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+ alias lyc='cd ~/Library/CloudStorage/OneDrive-RégionÎle-de-France/' 
+ alias l="ls -lt"
+ alias ll="ls -al"
+ alias nn='nvim'
+ alias anderson='open ~/Documents/Chess/anderson.pdf'
+ alias key='open ~/Documents/Chess/anderson_key.pdf'
+ alias silman='open ~/Documents/Chess/silman.pdf'
+ alias hellopen='open ~/Documents/Chess/opening.pdf'
+ alias capa='open ~/Documents/Chess/capablanca.pdf'
+ alias yusu='open ~/Documents/Chess/Yusupov/build_1.pdf'
+ alias mille='open ~/Documents/Chess/1001.pdf'
+ alias step='open ~/Documents/Chess/steps_method/step3mx_3.pdf'
+ alias s4m='open ~/Documents/Chess/steps_method/manuel_4.pdf'
+ alias s4s='open ~/Documents/Chess/steps_method/step4.pdf'
+ alias s4w='open ~/Documents/Chess/steps_method/wb_4.pdf'
+ alias rinck='open ~/Documents/Chess/Rinck.pdf'
+ alias notes='cd ~/Documents/notes/'
+ alias nts='cd ~/Library/CloudStorage/OneDrive-RégionÎle-de-France/notes'
+ alias exc='open ~/Documents/Chess/Chess.xlsx'
+ alias hellend='open ~/Documents/Chess/Hellsten.pdf'
+ alias alek='open ~/Documents/Chess/alekhine.pdf'
+ alias keymil='open ~/Documents/Chess/1001_key.pdf'
+ alias forcing='open ~/Documents/Chess/forcingMoves.pdf'
+
+
+
+
+
+export PATH="$HOME/Library/Python/3.13/bin:$PATH"i
+export PATH="/opt/homebrew/opt/ripgrep/bin:$PATH"
+export PATH="/Applications/WezTerm.app/Contents/MacOS:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+export PATH=$HOME/.nvm/versions/node/v22.14.0/bin:$PATH
+export NODE_PATH=$(npm root -g)
+export NODE_PATH=$(npm root -g)
+
+
+
+## create pdf with ajusted margins
+pandoc() {
+  if [ "$#" -eq 2 ] && [[ "$1" == *.md ]] && [[ "$2" == *.pdf ]]; then
+    command pandoc "$1" -o "$2" \
+      --pdf-engine=xelatex \
+      -V geometry="margin=1in" \
+      -V documentclass=article \
+      -V mainfont="Arial Unicode MS"
+  else
+    command pandoc "$@"
+  fi
+}
+
+
+
+
+# Lexicon script shortcut
+lexicon() {
+    local venv_path="$HOME/webdev/venv"
+    local script_path="$HOME/Sync/scripts/lexicon.py"
+    
+    if [ $# -eq 0 ]; then
+        echo "Usage: lexicon <path_to_markdown_file>"
+        return 1
+    fi
+    
+    source "$venv_path/bin/activate"
+    python3 "$script_path" "$@"
+    deactivate
+}
+
+# Blog script shortcut
+blog() {
+    local venv_path="$HOME/webdev/venv"
+    local script_path="$HOME/Sync/scripts/blog.py"
+    
+    source "$venv_path/bin/activate"
+    python3 "$script_path" "$@"
+    deactivate
+}
+
+# Add verbs script shortcut
+add-verbs() {
+    local venv_path="$HOME/webdev/venv"
+    local script_path="$HOME/Sync/scripts/add_verbs.py"
+    
+    source "$venv_path/bin/activate"
+    python "$script_path" "$@"
+    deactivate
+}
