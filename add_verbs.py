@@ -52,6 +52,20 @@ NOTES:
     print(help_text)
     sys.exit(0)
 
+def check_hugo_directory():
+    """Verify we're in a Hugo project directory"""
+    if not (os.path.exists('config.toml') or 
+            os.path.exists('hugo.toml') or 
+            os.path.exists('config.yaml') or
+            os.path.exists('hugo.yaml')):
+        print("❌ Error: Not in a Hugo project directory!")
+        print("   Please cd to your Hugo site directory first:")
+        print("   cd ~/Sync/premieres")
+        print("   cd ~/Sync/secondes")
+        print("   cd ~/Sync/terminales")
+        print("   cd ~/Sync/stmg")
+        sys.exit(1)
+
 def load_verbs():
     if os.path.exists(FILE_PATH):
         with open(FILE_PATH, "r", encoding="utf-8") as f:
@@ -68,6 +82,9 @@ def main():
     # Check for help flag
     if len(sys.argv) > 1 and sys.argv[1] in ['-h', '--help']:
         show_help()
+    
+    # Verify we're in a Hugo directory
+    check_hugo_directory()
     
     verbs = load_verbs()
     print("Enter irregular verbs (leave base form empty to stop):\n")

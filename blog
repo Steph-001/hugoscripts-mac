@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Wrapper script for blog.py
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Path to virtual environment
+VENV_PATH="$HOME/webdev/venv"
+
+# Path to Python script
+PYTHON_SCRIPT="$SCRIPT_DIR/blog.py"
+
+# Check if venv exists
+if [ ! -d "$VENV_PATH" ]; then
+    echo "Error: Virtual environment not found at $VENV_PATH"
+    exit 1
+fi
+
+# Check if Python script exists
+if [ ! -f "$PYTHON_SCRIPT" ]; then
+    echo "Error: Python script not found at $PYTHON_SCRIPT"
+    exit 1
+fi
+
+# Run the script with all arguments
+"$VENV_PATH/bin/python" "$PYTHON_SCRIPT" "$@"

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import sys
 import datetime
@@ -33,13 +34,33 @@ EXAMPLES:
 OUTPUT:
     Creates a markdown file in content/news/ with the format:
     <title-in-lowercase-with-hyphens>.md
+
+NOTES:
+    - Must be run from the Hugo project root directory
 """
     print(help_text)
     sys.exit(0)
 
+def check_hugo_directory():
+    """Verify we're in a Hugo project directory"""
+    if not (os.path.exists('config.toml') or 
+            os.path.exists('hugo.toml') or 
+            os.path.exists('config.yaml') or
+            os.path.exists('hugo.yaml')):
+        print("❌ Error: Not in a Hugo project directory!")
+        print("   Please cd to your Hugo site directory first:")
+        print("   cd ~/Sync/premieres")
+        print("   cd ~/Sync/secondes")
+        print("   cd ~/Sync/terminales")
+        print("   cd ~/Sync/stmg")
+        sys.exit(1)
+
 # Check for help flag
 if len(sys.argv) > 1 and sys.argv[1] in ['-h', '--help']:
     show_help()
+
+# Verify we're in a Hugo directory
+check_hugo_directory()
 
 # Define the path where new posts will be created
 POSTS_DIR = 'content/news/'
@@ -90,4 +111,4 @@ os.makedirs(POSTS_DIR, exist_ok=True)  # Ensure the directory exists
 with open(post_path, 'w') as post_file:
     post_file.write(post_content)
 
-print(f"\nNew post created: {post_path}")
+print(f"\n✅ New post created: {post_path}")
